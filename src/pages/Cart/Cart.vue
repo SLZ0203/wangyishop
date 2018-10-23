@@ -3,7 +3,7 @@
   <div class="wrap">
     <header class="cartHeader">
       <span>购物车</span>
-      <a href="javascript:;">领券</a>
+      <a href="javascript:;" @click="$router.replace('/person')">领券</a>
     </header>
     <section class="shopPromise">
       <ul>
@@ -25,7 +25,7 @@
       <img src="./images/1.png" class="cartImg">
       <div class="noCart">
         <p>去添加点什么吧</p>
-        <Button>登陆</Button>
+        <button class="login">登陆</button>
       </div>
     </section>
   </div>
@@ -35,7 +35,8 @@
     data() {
       return {}
     },
-    components: {}
+    components: {
+    }
   }
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
@@ -87,9 +88,16 @@
         width 100%
         text-align: center
         position: absolute
-        top 320px
+        top 315px
         p
           color: #999
           font-size 14px
           margin-bottom 20px
+        .login
+          width 240px
+          height 46px
+          background $red
+          border 0
+          font-size 14px
+          color #fff
 </style>

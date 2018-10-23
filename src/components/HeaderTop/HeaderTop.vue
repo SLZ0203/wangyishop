@@ -26,7 +26,7 @@
     .headerWrap
       width 100%
       line-height 45px
-      background #fff
+      background #eee
       padding 0 8px
       position fixed
       top 0

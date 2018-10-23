@@ -7,6 +7,8 @@ import Classify from '../pages/Classify/Classify.vue';
 import Cart from '../pages/Cart/Cart.vue';
 import Person from '../pages/Person/Person.vue';
 import Search from '../pages/Search/Search.vue';
+import Login from '../pages/Login/Login.vue';
+import StartPage from '../pages/StartPage/StartPage.vue';
 
 Vue.use(VueRouter);
 
@@ -14,7 +16,7 @@ export default new VueRouter({
   routes: [
     {
       path: '/',
-      redirect: '/home'
+      redirect: '/startpage'
     },
     {
       path: '/home',
@@ -51,6 +53,14 @@ export default new VueRouter({
     {
       path: '/search',
       component: Search,
+    },
+    {
+      path: '/login',
+      component: Login,
+    },
+    {
+      path: '/startpage',
+      component: StartPage,
     },
   ]
 })
