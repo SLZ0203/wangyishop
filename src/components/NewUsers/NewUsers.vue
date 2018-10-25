@@ -38,15 +38,15 @@
 </template>
 <script>
   export default {
-    data(){
-      return{
-        isShow: true
+    data() {
+      return {
+        isShow: false
       }
     },
     components: {}
   }
 </script>
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus" rel="stylesheet/stylus" scoped>
   @import "../../common/stylus/mixins.styl"
   .newUsers
     position fixed

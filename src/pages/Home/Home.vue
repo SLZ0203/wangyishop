@@ -12,20 +12,11 @@
       </div>
       <div class="swiperWrap">
         <ul class="shopNav">
-          <li class="active">推荐</li>
-          <li>居家</li>
-          <li>鞋包配饰</li>
-          <li>服装</li>
-          <li>电器</li>
-          <li>洗护</li>
-          <li>饮食</li>
-          <li>餐厨</li>
-          <li>婴童</li>
-          <li>文体</li>
-          <li>特色区</li>
+          <li v-for="(head,index) in home.headCateList" :key="index"
+              @click="upDataNum(index)" :class="{active:index===num}">{{head.name}}
+          </li>
         </ul>
       </div>
-
     </header>
     <!--内容区域-->
     <section class="scrollWrap">
@@ -34,135 +25,127 @@
         <div class="swipeWrap">
           <div class="swiper-container">
             <div class="swiper-wrapper">
-              <div class="swiper-slide">
-                <img src="./images/1.jpg" alt="">
-              </div>
-              <div class="swiper-slide">
-                <img src="./images/2.jpg" alt="">
-              </div>
-              <div class="swiper-slide">
-                <img src="./images/3.jpg" alt="">
-              </div>
-              <div class="swiper-slide">
-                <img src="./images/4.jpg" alt="">
-              </div>
-              <div class="swiper-slide">
-                <img src="./images/5.jpg" alt="">
-              </div>
-              <div class="swiper-slide">
-                <img src="./images/6.jpg" alt="">
-              </div>
-              <div class="swiper-slide">
-                <img src="./images/7.jpg" alt="">
+              <div class="swiper-slide" v-for="(item,index) in banner" :key="index">
+                <img :src="item.picUrl" alt="">
               </div>
             </div>
-            <ul class="swiper-pagination">
-              <li></li>
-              <li></li>
-              <li></li>
-              <li></li>
-              <li></li>
-              <li></li>
-              <li></li>
-            </ul>
+            <div class="swiper-pagination"></div>
           </div>
           <ul class="shopPromise">
-            <li>
+            <li v-for="(poli,index) in home.policyDescList" :key="index">
               <i class="iconfont icon-duigou01"></i>
-              <span>网易自营品牌</span>
-            </li>
-            <li>
-              <i class="iconfont icon-duigou01"></i>
-              <span>30天无忧退货</span>
-            </li>
-            <li>
-              <i class="iconfont icon-duigou01"></i>
-              <span>48小时快速退款</span>
+              <span>{{poli.desc}}</span>
             </li>
           </ul>
         </div>
-        <!--商品列表-->
+        <!--品牌制造商列表-->
         <div class="shopList">
           <header class="title">
             <span>品牌制造商直供</span>
             <i class="iconfont icon-right"></i>
           </header>
-          <ul class="brand">
-            <li>
+          <ul class="brand" v-if="home">
+            <li v-for="(item,index) in newHome" :key="index">
               <div class="info">
-                <p>海外制造商</p>
-                <p>9.9元起</p>
+                <p>{{item.name}}</p>
+                <p>{{item.floorPrice}}元起</p>
                 <span>
                 <i class="iconfont icon-shangxin"></i>
               </span>
               </div>
-              <img src="./images/1.png" alt="">
-            </li>
-            <li>
-              <div class="info">
-                <p>海外制造商</p>
-                <p>9.9元起</p>
-                <span>
-                <i class="iconfont icon-shangxin"></i>
-              </span>
-              </div>
-              <img src="./images/2.png" alt="">
-            </li>
-            <li>
-              <div class="info">
-                <p>海外制造商</p>
-                <p>9.9元起</p>
-                <span>
-                <i class="iconfont icon-shangxin"></i>
-              </span>
-              </div>
-              <img src="./images/3.png" alt="">
-            </li>
-            <li>
-              <div class="info">
-                <p>海外制造商</p>
-                <p>9.9元起</p>
-                <span>
-                <i class="iconfont icon-shangxin"></i>
-              </span>
-              </div>
-              <img src="./images/4.png" alt="">
+              <img :src="item.picUrl" alt="">
             </li>
           </ul>
         </div>
+        <!--新品首发列表-->
+        <NewStarter :newItem="home.newItemNewUserList"/>
+        <!--人气推荐列表-->
+        <HotThings :hotItem="home.popularItemList"/>
+        <!--福利社-->
+        <section class="boonWrap">
+
+        </section>
+        <!--专题精选列表-->
+        <ProjectGoods :proItem="home.topicList"/>
+        <!--好物列表-->
+        <GoodThings :home="home"/>
       </div>
     </section>
   </div>
 </template>
 <script>
   import Swiper from 'swiper';
+  import {mapState, mapGetters} from 'vuex';
   import 'swiper/dist/css/swiper.min.css';
   import BScroll from 'better-scroll'
   import NewUsers from '../../components/NewUsers/NewUsers.vue'
+  import GoodThings from '../../components/GoodThings/GoodThings.vue'
+  import NewStarter from '../../components/NewStarter/NewStarter.vue'
+  import HotThings from '../../components/HotThings/HotThings.vue'
+  import ProjectGoods from '../../components/ProjectGoods/ProjectGoods.vue'
+
   export default {
-    methods: {},
+    data() {
+      return {
+        num: 0
+      }
+    },
+    methods: {
+      upDataNum(index) {
+        this.num = index
+      },
+
+      //初始化滚动
+      _initScroll() {
+        //导航栏滑动
+        new BScroll('.swiperWrap', {
+          click: true,
+          scrollX: true
+        });
+        //页面竖向滑屏
+        new BScroll('.scrollWrap', {
+          click: true,
+        })
+      }
+    },
     mounted() {
-      new Swiper('.swiper-container', {
-        pagination: {
-          el: '.swiper-pagination',
-        },
-        loop: true,
-        autoplay: true,
-        speed: 800,
+      //异步获取home数据
+      this.$store.dispatch('getHome', () => {
+        this.$nextTick(() => {
+          this._initScroll()
+        })
+      });
+      //异步获取banner数据
+      this.$store.dispatch('getBanner', () => {
+        this.$nextTick(() => {
+          new Swiper('.swiper-container', {
+            pagination: {
+              el: '.swiper-pagination',
+            },
+            loop: true,
+            autoplay: true,
+            speed: 800,
+          });
+        })
       });
 
-      //导航栏滑动
-      new BScroll('.swiperWrap', {
-        click: true,
-        scrollX: true
-      });
-      //页面竖向滑屏
-      new BScroll('.scrollWrap', {
-        click: true,
-      })
     },
-    components:{
+
+    computed: {
+      ...mapState(['banner', 'home']),
+      ...mapGetters(['newHome'])
+    },
+    components: {
       NewUsers,
+      GoodThings,
+      NewStarter,
+      HotThings,
+      ProjectGoods
+    },
+    watch: {
+      home: function (val) {
+
+      }
     }
   }
 </script>
@@ -194,9 +177,9 @@
         border-radius 5px
         text-align: center
     .shopNav
-      width 200%
+      width 175%
       height 40%
-      padding-left 18px
+      padding-left 10px
       display flex
       clearFix()
       li
@@ -207,11 +190,11 @@
         &.active
           border-bottom 3px solid $red
           color: $red
+
   .scrollWrap
     height 600px
     .homeContainer
       width 100%
-      height 2000px
       .swipeWrap
         width 100%
         height 210px
@@ -220,6 +203,16 @@
           img
             height 175px
             width 100%
+          .swiper-pagination-bullet
+            width 19px
+            height 3px
+            border-radius 0
+            background #fff
+            opacity .4
+          .swiper-pagination-bullet-active
+            opacity 1
+            background #fff
+            border-radius 0
         .shopPromise
           height 35px
           padding 0 10px
@@ -235,7 +228,7 @@
               line-height 35px
       .shopList
         background #fff
-        margin-top 10px
+        margin 10px 0
         padding 5px
         .title
           height 50px
@@ -266,4 +259,10 @@
               width 177px
               height 119px
 
+      .boonWrap
+        width 100%
+        height 150px
+        margin-bottom 10px
+        background-image url(http://yanxuan.nosdn.127.net/a3ea2d1108c94c7dece05eddf95f6df5.jpg)
+        background-size 100%
 </style>

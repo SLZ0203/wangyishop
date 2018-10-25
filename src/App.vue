@@ -1,6 +1,8 @@
 <template>
   <div>
-    <router-view/>
+    <keep-alive>
+      <router-view/>
+    </keep-alive>
     <FooterGuide v-if="$route.meta.showFooter"/>
   </div>
 </template>

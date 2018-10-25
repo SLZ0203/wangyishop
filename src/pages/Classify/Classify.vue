@@ -1,6 +1,6 @@
 <!--分类-->
 <template>
-  <div class="wrap">
+  <div class="classWrap">
     <header class="search">
       <div class="text" @click="$router.push('/search')">
         <span>
@@ -11,93 +11,65 @@
     </header>
     <div class="navWrap">
       <ul class="list">
-        <li class="on">推荐专区</li>
-        <li>秋季专区</li>
-        <li>新品专区</li>
-        <li>爆品专区</li>
-        <li>居家</li>
-        <li>鞋包配饰</li>
-        <li>推荐专区</li>
-        <li>秋季专区</li>
-        <li>新品专区</li>
-        <li>爆品专区</li>
-        <li>居家</li>
-        <li>鞋包配饰</li>
-        <li>鞋包配饰</li>
+        <!-- class="on"-->
+        <li v-for="(item,index) in nav.categoryL1List" :key="index" @click="getIndex(index)"
+            :class="{on: index === num}">
+          {{item.name}}
+        </li>
       </ul>
     </div>
-    <div class="Container">
-      <img src="./images/3.jpg" class="tejia">
-      <ul class="list">
-        <li>
-          <img src="./images/1.png" alt="">
-          <span>服装每满100减20</span>
-        </li>
-        <li>
-          <img src="./images/2.png" alt="">
-          <span>服饰特价低至7折</span>
-        </li>
-        <li>
-          <img src="./images/1.png" alt="">
-          <span>服装每满100减20</span>
-        </li>
-        <li>
-          <img src="./images/2.png" alt="">
-          <span>服饰特价低至7折</span>
-        </li>
-        <li>
-          <img src="./images/1.png" alt="">
-          <span>服装每满100减20</span>
-        </li>
-        <li>
-          <img src="./images/2.png" alt="">
-          <span>服饰特价低至7折</span>
-        </li>
-        <li>
-          <img src="./images/1.png" alt="">
-          <span>服装每满100减20</span>
-        </li>
-        <li>
-          <img src="./images/2.png" alt="">
-          <span>服饰特价低至7折</span>
-        </li>
-        <li>
-          <img src="./images/1.png" alt="">
-          <span>服装每满100减20</span>
-        </li>
-        <li>
-          <img src="./images/2.png" alt="">
-          <span>服饰特价低至7折</span>
-        </li>
-        <li>
-          <img src="./images/1.png" alt="">
-          <span>服装每满100减20</span>
-        </li>
-        <li>
-          <img src="./images/2.png" alt="">
-          <span>服饰特价低至7折</span>
-        </li>
-      </ul>
+    <div class="scrollWrap">
+      <ClassItem :nav="nav" :num="num"/>
     </div>
   </div>
 </template>
 <script>
-  import BScroll from 'better-scroll'
+  import BScroll from 'better-scroll';
+  import {mapState} from 'vuex';
+  import ClassItem from '../../components/ClassItem/ClassItem.vue'
+
   export default {
     data() {
-      return {}
+      return {
+        num: 0
+      }
     },
-    mounted(){
-      new BScroll('.navWrap', {
-        click: true,
-        scrollX: true
+    mounted() {
+      this.$store.dispatch('getNav', () => {
+        this.$nextTick(() => {
+          this._initScroll()
+        });
       });
+
+    },
+    methods: {
+      getIndex(index) {
+        this.num = index;
+      },
+
+      //初始化滚动方法
+      _initScroll() {
+        new BScroll('.navWrap', {
+          click: true,
+          scrollX: true
+        });
+        new BScroll('.scrollWrap', {
+          click: true,
+        })
+      }
+
+    },
+    computed: {
+      ...mapState(['nav'])
+    },
+    components: {
+      ClassItem
     }
   }
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
   @import "../../common/stylus/mixins.styl"
-  .wrap
+  .classWrap
     width 100%
     height 578px
     .search
@@ -131,7 +103,7 @@
       margin-right 1px
       .list
         width 100%
-        padding-top 34px
+        padding-top 17px
         li
           width 100%;
           height 25px
@@ -143,25 +115,11 @@
           &.on
             border-left 2px solid $red
             color $red
-    .Container
-      width 293px
+    .scrollWrap
       height 100%
+      width 293px
       margin 45px 0 0 82px
       box-sizing border-box
       background #fff
       padding 15px 15px 10px 15px
-      .tejia
-        width 100%
-        height 96px
-        margin-bottom 16px
-      .list
-        li
-          float left
-          width 72px
-          height 108px
-          margin-right 15px
-          font-size 12px
-          text-align: center
-          img
-            width 100%
 </style>
