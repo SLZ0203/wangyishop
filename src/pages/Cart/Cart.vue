@@ -1,6 +1,6 @@
 <!--购物车-->
 <template>
-  <div class="wrap">
+  <section class="wrap">
     <header class="cartHeader">
       <span>购物车</span>
       <a href="javascript:;" @click="$router.replace('/person')">领券</a>
@@ -25,10 +25,10 @@
       <img src="./images/1.png" class="cartImg">
       <div class="noCart">
         <p>去添加点什么吧</p>
-        <button class="login">登陆</button>
+        <button class="login" @click="$router.push('/login')">登陆</button>
       </div>
     </section>
-  </div>
+  </section>
 </template>
 <script>
   export default {

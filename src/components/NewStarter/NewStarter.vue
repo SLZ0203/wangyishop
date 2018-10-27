@@ -11,7 +11,7 @@
     <section class="newWrap">
       <ul class="newList">
         <li class="item" v-for="(item,index) in newItem">
-          <img :src="item.listPicUrl">
+          <img v-lazy="item.listPicUrl">
           <p class="name ellipsis">{{item.name}}</p>
           <p class="info ellipsis">{{item.simpleDesc}}</p>
           <p class="pirce">￥{{item.retailPrice}}</p>
@@ -28,11 +28,13 @@
     props: {
       newItem: Array,
     },
-    mounted(){
-      new BScroll('.newWrap', {
-        click: true,
-        scrollX: true
-      });
+    mounted() {
+      this.$nextTick(() => {
+        new BScroll('.newWrap', {
+          click: true,
+          scrollX: true
+        });
+      })
     }
   }
 </script>
@@ -66,11 +68,10 @@
         font-size 15px
     .newWrap
       width 100%
+      display flex
       .newList
-        width 361%
-        clearFix()
+        display flex
         .item
-          float left
           width 130px
           margin-left 15px
           img

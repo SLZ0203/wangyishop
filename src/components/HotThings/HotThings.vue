@@ -11,7 +11,7 @@
     <section class="hotWrap">
       <ul class="newList">
         <li class="item" v-for="(i,index) in hotItem">
-          <img :src="i.listPicUrl">
+          <img v-lazy="i.listPicUrl">
           <p class="name ellipsis">{{i.name}}</p>
           <p class="info ellipsis">{{i.simpleDesc}}</p>
           <p class="pirce">￥{{i.retailPrice}}</p>
@@ -29,10 +29,12 @@
       hotItem: Array,
     },
     mounted(){
-      new BScroll('.hotWrap', {
-        click: true,
-        scrollX: true
-      });
+      this.$nextTick(()=>{
+        new BScroll('.hotWrap', {
+          click: true,
+          scrollX: true
+        });
+      })
     }
   }
 </script>
@@ -66,11 +68,10 @@
         font-size 15px
     .hotWrap
       width 100%
+      display flex
       .newList
-        width 361%
-        clearFix()
+        display flex
         .item
-          float left
           width 130px
           margin-left 15px
           img

@@ -1,9 +1,9 @@
 <template>
   <section class="Container" v-if="nav.categoryL1List">
-    <img :src="nav.categoryL1List[num].bannerUrl" class="tejia">
+    <img v-lazy="nav.categoryL1List[num].bannerUrl" class="tejia">
     <ul class="list">
       <li v-for="(item,index) in nav.categoryL1List[num].subCateList" :key="index">
-        <img :src="item.wapBannerUrl" alt="">
+        <img v-lazy="item.wapBannerUrl" alt="">
         <span>{{item.name}}</span>
       </li>
     </ul>

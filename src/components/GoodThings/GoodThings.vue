@@ -8,7 +8,7 @@
         </header>
         <ul class="every">
           <li class="everyItem" v-for="(i,index) in item.itemList" :key="index">
-            <img :src="i.listPicUrl">
+            <img v-lazy="i.listPicUrl">
             <p class="info ellipsis">{{i.simpleDesc}}</p>
             <p class="name">{{i.name}}</p>
             <p class="pirce">￥{{i.retailPrice}}</p>

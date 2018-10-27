@@ -1,5 +1,18 @@
-import {reqData, reqBanner, reqHome, reqDetail, reqNav} from '../api'
-import {RECEIVE_DATA, RECEIVE_BANNER, RECEIVE_HOME, RECEIVE_DETAIL, RECEIVE_NAV} from './mutation-types'
+import {
+  reqData,
+  reqBanner,
+  reqHome,
+  reqDetail,
+  reqNav
+} from '../api'
+import {
+  RECEIVE_DATA,
+  RECEIVE_BANNER,
+  RECEIVE_HOME,
+  RECEIVE_DETAIL,
+  RECEIVE_NAV,
+  LoginWay
+} from './mutation-types'
 
 export default {
   async getData({commit}, cb) {
@@ -30,4 +43,8 @@ export default {
     commit(RECEIVE_NAV, {nav: result.nav});
     cb && cb()
   },
+  //设置loginWay
+  setLoginWay({commit}, loginWay) {
+    commit(LoginWay, loginWay)
+  }
 }

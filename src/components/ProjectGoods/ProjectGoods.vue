@@ -8,7 +8,7 @@
     <section class="pro_wrap">
       <ul class="pro_list">
         <li class="pro_item" v-for="(item,index) in proItem" :key="index">
-          <img :src="item.itemPicUrl" alt="">
+          <img v-lazy="item.itemPicUrl" alt="">
           <div class="pro_name">
             <span>{{item.subtitle}}</span>
             <span class="price">{{item.priceInfo}}元起</span>
@@ -27,10 +27,12 @@
       proItem: Array
     },
     mounted() {
-      new BScroll('.pro_wrap', {
-        click: true,
-        scrollX: true
-      });
+      this.$nextTick(() => {
+        new BScroll('.pro_wrap', {
+          click: true,
+          scrollX: true
+        });
+      })
     }
   }
 </script>
@@ -47,14 +49,13 @@
       justify-content center
     .pro_wrap
       width 100%
+      display flex
       .pro_list
+        display flex
         padding 0 15px 15px 15px
         box-sizing border-box
-        clearFix()
-        width 248%
         .pro_item
           width 288px
-          float left
           margin-right 12px
           img
             width 100%

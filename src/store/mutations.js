@@ -3,7 +3,8 @@ import {
   RECEIVE_BANNER,
   RECEIVE_HOME,
   RECEIVE_DETAIL,
-  RECEIVE_NAV
+  RECEIVE_NAV,
+  LoginWay
 } from './mutation-types'
 
 export default {
@@ -21,5 +22,8 @@ export default {
   },
   [RECEIVE_NAV](state, {nav}) {
     state.nav = nav
-  }
+  },
+  [LoginWay](state, loginWay) {
+    state.loginWay = loginWay
+  },
 }

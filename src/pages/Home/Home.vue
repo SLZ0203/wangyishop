@@ -1,6 +1,6 @@
 <!--首页-->
 <template>
-  <div>
+  <section>
     <!--新人礼页面-->
     <NewUsers/>
     <!--头部-->
@@ -8,10 +8,11 @@
       <div class="shopSearch">
         <h3>网易严选</h3>
         <input type="text" placeholder="搜索商品，共计9999款好物">
-        <i class="iconfont iconfont-search"></i>
+        <i class="iconfont icon-sousuo"></i>
       </div>
       <div class="swiperWrap">
         <ul class="shopNav">
+          <li :class="{active: num<0}" @click="num=-1">推荐</li>
           <li v-for="(head,index) in home.headCateList" :key="index"
               @click="upDataNum(index)" :class="{active:index===num}">{{head.name}}
           </li>
@@ -26,7 +27,7 @@
           <div class="swiper-container">
             <div class="swiper-wrapper">
               <div class="swiper-slide" v-for="(item,index) in banner" :key="index">
-                <img :src="item.picUrl" alt="">
+                <img v-lazy="item.picUrl" alt="">
               </div>
             </div>
             <div class="swiper-pagination"></div>
@@ -53,7 +54,7 @@
                 <i class="iconfont icon-shangxin"></i>
               </span>
               </div>
-              <img :src="item.picUrl" alt="">
+              <img v-lazy="item.picUrl" alt="">
             </li>
           </ul>
         </div>
@@ -62,16 +63,18 @@
         <!--人气推荐列表-->
         <HotThings :hotItem="home.popularItemList"/>
         <!--福利社-->
-        <section class="boonWrap">
-
-        </section>
+        <section class="boonWrap"></section>
         <!--专题精选列表-->
         <ProjectGoods :proItem="home.topicList"/>
         <!--好物列表-->
         <GoodThings :home="home"/>
+        <!--底部声明-->
+        <FtWrap/>
       </div>
     </section>
-  </div>
+    <!--回到顶部按钮-->
+    <goTop/>
+  </section>
 </template>
 <script>
   import Swiper from 'swiper';
@@ -87,7 +90,7 @@
   export default {
     data() {
       return {
-        num: 0
+        num: -1
       }
     },
     methods: {
@@ -159,9 +162,10 @@
     background #fff
     .shopSearch
       width 100%
-      height 40%
       padding 2px 0 0 13px
+      box-sizing border-box
       display flex
+      position relative
       h3
         font-family "楷体"
         font-weight 500
@@ -176,29 +180,33 @@
         font-size 14px
         border-radius 5px
         text-align: center
-    .shopNav
-      width 175%
-      height 40%
-      padding-left 10px
+      i
+        position absolute
+        left 33%
+        top 29%
+    .swiperWrap
       display flex
-      clearFix()
-      li
-        padding 0 18px
-        font-size 14px
-        color: #333
-        line-height 36px
-        &.active
-          border-bottom 3px solid $red
-          color: $red
+      .shopNav
+        display flex
+        li
+          width 80px
+          text-align: center
+          color: #333
+          line-height 30px
+          padding 0 10px
+          &.active
+            border-bottom 3px solid $red
+            color: $red
 
   .scrollWrap
     height 600px
     .homeContainer
       width 100%
+      padding-bottom 61px
       .swipeWrap
         width 100%
         height 210px
-        margin-top 82px
+        margin-top 78px
         .swiper-container
           img
             height 175px

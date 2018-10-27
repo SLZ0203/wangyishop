@@ -1,11 +1,16 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
-import Home from '../pages/Home/Home.vue';
+const Home = () => import('../pages/Home/Home.vue');
+const Recommend = () => import('../pages/Recommend/Recommend.vue');
+const Classify = () => import('../pages/Classify/Classify.vue');
+const Cart = () => import('../pages/Cart/Cart.vue');
+const Person = () => import('../pages/Person/Person.vue');
+/*import Home from '../pages/Home/Home.vue';
 import Recommend from '../pages/Recommend/Recommend.vue';
 import Classify from '../pages/Classify/Classify.vue';
 import Cart from '../pages/Cart/Cart.vue';
-import Person from '../pages/Person/Person.vue';
+import Person from '../pages/Person/Person.vue';*/
 import Search from '../pages/Search/Search.vue';
 import Login from '../pages/Login/Login.vue';
 import StartPage from '../pages/StartPage/StartPage.vue';

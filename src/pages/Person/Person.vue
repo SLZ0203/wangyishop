@@ -1,17 +1,17 @@
 <!--个人-->
 <template>
-  <div>
+  <section>
     <HeaderTop/>
     <section class="loginTypes">
       <div class="logoWrap">
         <img src="./images/1.png" alt="">
       </div>
       <div class="btnWrap">
-        <div class="loginWay phone" @click="$router.push('/login')">
+        <div class="loginWay phone" @click="goLogoin(true)">
           <i class="iconfont icon-mobilephone"></i>
           <span>手机号码登录</span>
         </div>
-        <div class="loginWay email" @click="$router.push('/login')">
+        <div class="loginWay email" @click="goLogoin(false)">
           <i class="iconfont icon-duanxin"></i>
           <span>邮箱账号登陆</span>
         </div>
@@ -35,14 +35,23 @@
         </span>
       </div>
     </section>
-  </div>
+  </section>
 </template>
 <script>
   export default {
     data() {
-      return {}
+      return {
+        loginWay: null
+      }
     },
-    components: {}
+    computed: {},
+    methods: {
+      goLogoin(loginWay1) {
+        this.loginWay = loginWay1;
+        this.$router.replace('/login');
+        this.$store.dispatch('setLoginWay', this.loginWay)
+      }
+    }
   }
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
@@ -51,6 +60,7 @@
   .loginTypes
     width 100%
     height 623px
+    margin-top 45px
     .logoWrap
       text-align: center
       padding 80px 0
@@ -76,6 +86,7 @@
       .register
         border 0
         color #333
+
   .other
     width 100%
     height 20px

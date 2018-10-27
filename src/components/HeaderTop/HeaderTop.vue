@@ -23,13 +23,14 @@
   .topHeader
     width 100%
     height 45px
+    position fixed
+    top 0
+    z-index 1000
     .headerWrap
       width 100%
       line-height 45px
       background #eee
       padding 0 8px
-      position fixed
-      top 0
       .iconfont
         font-size 26px
       .title
